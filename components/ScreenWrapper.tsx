@@ -1,4 +1,4 @@
-import { Dimensions, ImageBackground, Platform, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, ImageBackground, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { ScreenWrapperProps } from '@/types'
 import { colors } from '@/constants/theme';
@@ -28,12 +28,23 @@ const ScreenWrapper = ({
         backgroundColor: isModal ? colors.white : colors.neutral900
 
     }}
-    imageStyle={{opacity:bgOpacity}}
+    imageStyle={{opacity:showPattern? bgOpacity : 0}}
+    source={require('../assets/images/bgPattern.png')}
     >
-      <Text>ScreenWrapper</Text>
+      <View
+      style={[
+        {paddingTop,
+        paddingBottom,
+        flex: 1,
+    }, style,
+      ]}
+      >
+        <StatusBar barStyle={"light-content"} backgroundColor={"transparent"}/>
+        {children}
+      </View>
     </ImageBackground>
-  )
-}
+  );
+};
 
 export default ScreenWrapper
 
