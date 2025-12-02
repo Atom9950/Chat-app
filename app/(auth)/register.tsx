@@ -45,9 +45,9 @@ const register = () => {
               contentContainerStyle={styles.form}
               showsVerticalScrollIndicator={false}
             >
-              <View style={{gap: spacingY._10, marginBottom: spacingY._15}}>
+              <View style={{gap: spacingY._10, marginBottom: spacingY._15, paddingHorizontal: spacingX._10}}>
                 <Typo size={28} fontWeight="600">Getting Started</Typo>
-                <Typo size={15} color={colors.neutral600}>Create an account to start using our service</Typo>
+                <Typo size={15} color={colors.neutral600}>Create an account to continue</Typo>
               </View>
               
               <Input
@@ -102,13 +102,11 @@ const register = () => {
 
                 <View style={styles.footer}>
                   <Text>Already have an account?</Text>
-                  <Pressable onPress={()=>router.push("/login")}>
+                  <Pressable onPress={()=>router.push("/(auth)/login")}>
                     <Typo color={colors.primary} fontWeight={"bold"} size={12}>Login</Typo>
                   </Pressable>
                 </View>
-
-
-              </View>
+             </View>
             </Animated.ScrollView>
           </View>
         </View>
@@ -138,7 +136,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: radius._50,
     borderTopRightRadius: radius._50,
     borderCurve: "continuous",
-    paddingHorizontal: spacingX._20,
+    paddingHorizontal: spacingX._10,
     paddingTop: spacingY._20,
   },
   form: {
