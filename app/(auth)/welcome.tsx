@@ -6,9 +6,11 @@ import { colors, spacingX } from '@/constants/theme'
 import { verticalScale } from '@/utils/styling'
 import Animated, { FadeIn } from 'react-native-reanimated'
 import Button from '@/components/Button'
+import { useRouter } from 'expo-router'
 
 
 const welcome = () => {
+    const router = useRouter()
   return (
     <ScreenWrapper showPattern={true} bgOpacity={0.5}>
         <View style={styles.container}>
@@ -23,12 +25,17 @@ const welcome = () => {
                 resizeMode="contain"
             />
             <View>
-                <Typo size={33} fontWeight={"800"} color={colors.white}>Your Messaging App!</Typo>
+                <Typo style={{alignSelf:"center"}}size={33} fontWeight={"800"} color={colors.white}>Your Space To Speak!</Typo>
             </View>
-            <Button>
-                <Typo size={23} fontWeight={"bold"}>Get Started</Typo>
-            </Button>
-        </View>
+            <View style={{gap: spacingX._10}}>
+                    <Button onPress={() => router.push('/(auth)/register')}>
+                        <Typo size={17} fontWeight={"bold"}>Get Started</Typo>
+                    </Button>
+                    <View>
+                        <Typo style={{alignSelf: "center"}} size={10} color={colors.white} >Terms and Conditions apply</Typo>
+                    </View>
+                </View>
+            </View>
     </ScreenWrapper>
   )
 }
@@ -38,9 +45,9 @@ export default welcome
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'space-around',
-        paddingHorizontal: spacingX._20,
-        marginVertical: spacingX._10,
+        justifyContent: 'space-between',
+        paddingHorizontal: spacingX._10,
+        marginVertical: spacingX._40,
     },
     background:{
         flex: 1,

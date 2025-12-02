@@ -33,6 +33,8 @@ export interface UserDataProps {
 
 export interface InputProps extends TextInputProps {
   icon?: React.ReactNode;
+  rightIcon?: React.ReactNode // Add this
+  onRightIconPress?: () => void // Add this
   containerStyle?: ViewStyle;
   inputStyle?: TextStyle;
   inputRef?: React.RefObject<TextInput>;
