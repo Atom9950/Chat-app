@@ -25,15 +25,14 @@ const welcome = () => {
                 resizeMode="contain"
             />
             <View>
-                <Typo style={{alignSelf:"center"}}size={33} fontWeight={"800"} color={colors.white}>Your Space To Speak!</Typo>
+                <Typo style={{alignSelf:"center"}}size={33} fontWeight={"800"} color={colors.white}>Real Chats. Real You.</Typo>
+                <Typo style={{alignSelf:"center"}}size={29} fontWeight={"800"} color={colors.white}>Discover your self</Typo>
+                <Typo style={{alignSelf:"center"}}size={25} fontWeight={"800"} color={colors.white}>with Dialen!</Typo>
             </View>
             <View style={{gap: spacingX._10}}>
                     <Button onPress={() => router.push('/(auth)/register')}>
                         <Typo size={17} fontWeight={"bold"}>Get Started</Typo>
                     </Button>
-                    <View>
-                        <Typo style={{alignSelf: "center"}} size={10} color={colors.white} >Terms and Conditions apply</Typo>
-                    </View>
                 </View>
             </View>
     </ScreenWrapper>
