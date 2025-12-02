@@ -3,7 +3,7 @@ import React from 'react'
 import { colors } from '@/constants/theme'
 import { BackButtonProps } from '@/types'
 import { useRouter } from 'expo-router'
-import { CaretLeftIcon } from 'phosphor-react-native'
+import { ArrowLeft } from 'phosphor-react-native'
 import { verticalScale } from '@/utils/styling'
 
 
@@ -15,7 +15,7 @@ const BackButton = ({
     const router = useRouter();
   return (
     <TouchableOpacity onPress={() => router.back()} style={[styles.button, style]}>
-      <CaretLeftIcon size={verticalScale(iconSize)} color={color} weight="bold" />
+      <ArrowLeft size={verticalScale(iconSize)} color={color} weight="bold" />
     </TouchableOpacity>
   )
 }
