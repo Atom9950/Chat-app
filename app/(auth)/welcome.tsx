@@ -30,7 +30,7 @@ const welcome = () => {
                 <Typo style={{alignSelf:"center"}}size={25} fontWeight={"800"} color={colors.white}>with Dialen!</Typo>
             </View>
             <View style={{gap: spacingX._10}}>
-                    <Button onPress={() => router.push('/(auth)/register')}>
+                    <Button onPress={() => router.push('/(auth)/register')} style={{backgroundColor:colors.white}}>
                         <Typo size={17} fontWeight={"bold"}>Get Started</Typo>
                     </Button>
                 </View>

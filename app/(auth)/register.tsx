@@ -11,6 +11,7 @@ import { verticalScale } from '@/utils/styling'
 import { useRef } from 'react'
 import { useRouter } from 'expo-router'
 import Button from '@/components/Button'
+import { useAuth } from '@/contexts/authContext'
 
 const register = () => {
     const nameRef= useRef("");
@@ -20,6 +21,7 @@ const register = () => {
     const [isLoading, setIsLoading]= useState(false)
     const [showPassword, setShowPassword] = useState(false) // Add this state
     const router = useRouter();
+    const { signUp } = useAuth();
 
     const handleSubmit = async() =>{
         if(!nameRef.current || !emailRef.current || !passwordRef.current){
@@ -28,6 +30,14 @@ const register = () => {
         }
 
         // Handle the sign up logic here...
+      try {
+            setIsLoading(true);
+            await signUp(emailRef.current, passwordRef.current, nameRef.current, "");
+          } catch (error: any) {
+            Alert.alert('Registration Error', error.message);
+          } finally {
+            setIsLoading(false);
+          }
     }
     
   return (
