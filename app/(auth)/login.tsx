@@ -34,7 +34,7 @@ const Login = () => {
       <ScreenWrapper showPattern={true} bgOpacity={0.5}>
         <View style={styles.container}>
           <View style={styles.header}>
-            <BackButton iconSize={28} />
+            <BackButton iconSize={24} />
             <Typo size={15} color={colors.white}>
               Forgotten Password?
             </Typo>
