@@ -54,6 +54,7 @@ const ProfileModal = () => {
                         text: "OK",
                         onPress: () => {
                             updateToken(res.data.token);
+                            router.back();
                         }
                     }
                 ]
@@ -92,6 +93,26 @@ const ProfileModal = () => {
         if (!result.canceled) {
             setUserData({...userData, avatar:result.assets[0]});
         }
+    }
+
+    const onDeleteAvatar = () => {
+        Alert.alert(
+            "Delete Avatar",
+            "Are you sure you want to remove your profile picture?",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                },
+                {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: () => {
+                        setUserData({...userData, avatar: null});
+                    }
+                }
+            ]
+        );
     }
 
     const handleAvatarPress = () => {
@@ -185,9 +206,26 @@ const ProfileModal = () => {
             <TouchableOpacity onPress={handleAvatarPress} disabled={loading} activeOpacity={0.8}>
               <Avatar uri={userData.avatar} size={140}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.editIcon} onPress={onPickImage} disabled={loading}>
+            
+            {/* Edit Icon - Left Side */}
+            <TouchableOpacity 
+              style={[styles.actionIcon, styles.editIcon]} 
+              onPress={onPickImage} 
+              disabled={loading}
+            >
                 <Icons.PencilSimple size={verticalScale(28)} color={colors.neutral800} />
             </TouchableOpacity>
+
+            {/* Delete Icon - Right Side */}
+            {userData.avatar && (
+              <TouchableOpacity 
+                style={[styles.actionIcon, styles.deleteIcon]} 
+                onPress={onDeleteAvatar} 
+                disabled={loading}
+              >
+                  <Icons.Trash size={verticalScale(28)} color={colors.rose} />
+              </TouchableOpacity>
+            )}
           </View>
 
           {uploadProgress ? (
@@ -302,10 +340,9 @@ const styles = StyleSheet.create({
     borderColor: colors.neutral500,
   },
   
-  editIcon: {
+  actionIcon: {
     position: "absolute",
     bottom: spacingY._5,
-    right: spacingY._7,
     borderRadius: 100,
     backgroundColor: colors.neutral100,
     shadowColor: colors.black,
@@ -314,6 +351,14 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 4,
     padding: spacingY._7,
+  },
+
+  editIcon: {
+    left: spacingY._7,
+  },
+
+  deleteIcon: {
+    right: spacingY._7,
   },
 
   inputContainer: {
