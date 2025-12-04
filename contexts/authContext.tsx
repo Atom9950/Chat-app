@@ -4,6 +4,7 @@ import { router, useRouter } from "expo-router";
 import { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {jwtDecode} from 'jwt-decode';
+import { connectSocket, disconnectSocket } from "@/socket/socket";
 
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
@@ -37,6 +38,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         // if token is not expired and user is loged in
         setToken(storedToken);
+        await connectSocket();
         setUser(decoded.user);
         gotoHomePage();
 
@@ -77,6 +79,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signIn = async (email: string, password: string) => {
     const response = await login(email, password);
     await updateToken(response.token);
+    await connectSocket();
     router.replace("/(main)/home")
 };
 
@@ -88,12 +91,14 @@ const signUp = async (
   ) => {
      const response = await register (email, password, name, avatar);
     await updateToken(response.token);
+    await connectSocket();
     router.replace("/(main)/home")
   };
   const signOut = async () => {
     setUser(null);
     setToken(null);
     await AsyncStorage.removeItem('token');
+    disconnectSocket();
     router.replace("/(auth)/welcome")
   };
   return (
