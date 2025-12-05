@@ -9,13 +9,14 @@ const StackLayout = () => {
       {/* Define your index/starting route */}
       <Stack.Screen name="index" />
       
-      {/* Define other routes if needed */}
-      {/* <Stack.Screen name="(auth)" />
-      <Stack.Screen name="(main)" />
-       */}
       {/* Configure the modal */}
       <Stack.Screen
         name="(main)/profileModal"
+        options={{ presentation: "modal" }}
+      />
+
+            <Stack.Screen
+        name="(main)/newConversationModal"
         options={{ presentation: "modal" }}
       />
     </Stack>
