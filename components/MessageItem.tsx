@@ -9,8 +9,13 @@ import Typo from "./Typo";
 
 const MessageItem = ({
   item,
-  isDirect
-}: { item: MessageProps; isDirect: boolean }) => {
+  isDirect,
+  isHighlighted
+}: { 
+  item: MessageProps; 
+  isDirect: boolean;
+  isHighlighted?: boolean;  // ← Added this
+}) => {
 
     const {user: currentUser} = useAuth();
     const isMe = item.isMe;
@@ -19,9 +24,9 @@ const MessageItem = ({
     <View
         style={[
             styles.messageContainer,
-            isMe ? styles.myMessage : styles.theirMessage
+            isMe ? styles.myMessage : styles.theirMessage,
+            isHighlighted && styles.highlightedContainer
         ]}
-
     >
       {
         !isMe && !isDirect && (
@@ -35,28 +40,29 @@ const MessageItem = ({
         <View 
             style={[
                 styles.messageBubble,
-                isMe? styles.myBubble : styles.theirBubble
-                ]}>
-                    {
-                        !isMe && !isDirect && (
-                            <Typo color={colors.neutral900} fontWeight={"600"} size={13}>
-                        {item.sender.name}
-                    </Typo>
-                        )
-                    }   
+                isMe? styles.myBubble : styles.theirBubble,
+                isHighlighted && styles.highlightedBubble
+            ]}>
+                {
+                    !isMe && !isDirect && (
+                        <Typo color={colors.neutral900} fontWeight={"600"} size={13}>
+                            {item.sender.name}
+                        </Typo>
+                    )
+                }   
 
-                    {
-                        item.content && <Typo size={15}>{item.content}</Typo>
-                    }  
+                {
+                    item.content && <Typo size={15}>{item.content}</Typo>
+                }  
 
-                    <Typo
-                        style={{alignSelf: "flex-end"}}
-                        size={11}
-                        color={colors.neutral600}
-                        fontWeight={500}
-                    >
-                        {item.createdAt}
-                    </Typo>
+                <Typo
+                    style={{alignSelf: "flex-end"}}
+                    size={11}
+                    color={colors.neutral600}
+                    fontWeight={500}
+                >
+                    {item.createdAt}
+                </Typo>
         </View>
     </View>
   );
@@ -66,41 +72,57 @@ export default MessageItem;
 
 const styles = StyleSheet.create({
     messageContainer: {
-  flexDirection: "row",
-  gap: spacingX._7,
-  maxWidth: "80%",
-},
+        flexDirection: "row",
+        gap: spacingX._7,
+        maxWidth: "80%",
+    },
 
-myMessage: {
-  alignSelf: "flex-end",
-},
+    myMessage: {
+        alignSelf: "flex-end",
+    },
 
-theirMessage: {
-  alignSelf: "flex-start",
-},
+    theirMessage: {
+        alignSelf: "flex-start",
+    },
 
-messageAvatar: {
-  alignSelf: "flex-end",
-},
-attachment: {
-  height: verticalScale(180),
-  width: verticalScale(180),
-  borderRadius: radius._10,
-},
+    messageAvatar: {
+        alignSelf: "flex-end",
+    },
+    
+    attachment: {
+        height: verticalScale(180),
+        width: verticalScale(180),
+        borderRadius: radius._10,
+    },
 
-messageBubble: {
-  padding: spacingX._10,
-  borderRadius: radius._15,
-  gap: spacingY._5,
-},
+    messageBubble: {
+        padding: spacingX._10,
+        borderRadius: radius._15,
+        gap: spacingY._5,
+    },
 
-myBubble: {
-  backgroundColor: colors.myBubble,
-},
+    myBubble: {
+        backgroundColor: colors.myBubble,
+    },
 
-theirBubble: {
-  backgroundColor: colors.otherBubble,
-},
+    theirBubble: {
+        backgroundColor: colors.otherBubble,
+    },
 
+    highlightedContainer: {
+        backgroundColor: colors.primary + '15',
+        borderRadius: radius._15,
+        padding: spacingX._5,
+        marginHorizontal: -spacingX._5,
+    },
 
+    highlightedBubble: {
+        borderWidth: 2,
+        borderColor: colors.primary,
+        shadowColor: colors.primary,
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+        elevation: 5,
+    },
 });
